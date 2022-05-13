@@ -1,11 +1,7 @@
-
-
 const Form = () => {
-  return (
-    <div>
-      <h2>Formulario</h2>
-    </div>
-  )
+    return (
+        <h2>Formulario</h2>
+)
 }
 
 export default Form
