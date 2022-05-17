@@ -1,5 +1,5 @@
 import Header from "./components/Header"
-import Form from "./components/form"
+import Form from "./components/Form"
 import PatientList from "./components/PatientList"
 
 function App() {
