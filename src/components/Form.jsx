@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Error from "./Error"
 
-const Form = ({ patients ,setPatients }) => {
+const Form = ({ patients ,setPatients, patient, setPatient }) => {
     const [name, setName] = useState('')
     const [owner, setOwner] = useState('')
     const [email, setEmail] = useState('')
@@ -9,6 +9,16 @@ const Form = ({ patients ,setPatients }) => {
     const [symptom, setSymptom] = useState('')
 
     const [error, setError] = useState(false)
+
+    useEffect( () => {
+        if ( Object.keys(patient).length > 0 ){
+            setName(patient.name)
+            setOwner(patient.owner)
+            setEmail(patient.email)
+            setDate(patient.date)
+            setSymptom(patient.symptom)
+        }
+    }, [patient])
 
     const genId = () => {
         const random = Math.random().toString(36).substring(2)
@@ -34,11 +44,25 @@ const Form = ({ patients ,setPatients }) => {
             owner,
             email,
             date,
-            symptom,
-            id: genId()
+            symptom
         }
-        // add the new object to the collections
+
+        if(patient.id) {
+            // edit this values
+            patientObject.id = patient.id
+
+            // patientState is a new variable for find the correct registry
+            const updatePatients = patients.map( patientState => patientState.id === patient.id ? patientObject : patientState)
+
+            // return the update values
+            setPatients(updatePatients)
+            setPatient({}) // clean values in memory
+
+        } else {
+            // add the new object to the collections
+            patientObject.id = genId();
         setPatients([...patients, patientObject])
+        }
 
         // reset the form
         setName('')
@@ -128,7 +152,7 @@ const Form = ({ patients ,setPatients }) => {
                 <input
                     type="submit"
                     className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
-                    value="Agregar paciente"
+                    value={ patient.id ? "Editar paciente" : "Agregar Paciente"}
                 />
             </form>
 

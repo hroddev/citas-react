@@ -1,8 +1,7 @@
 import Patients from "./Patients"
 
-const PatientList = ({patients}) => {
+const PatientList = ({patients, patient, setPatient, deletePatient}) => {
 
-    console.log(patients)
 
     return (
         <div className="md:w-1/2 lg:w-3/5 h-screen md:overflow-y-auto mr-5">
@@ -19,6 +18,8 @@ const PatientList = ({patients}) => {
                     <Patients
                         key={patient.id}
                         patient={patient}
+                        setPatient={setPatient}
+                        deletePatient={deletePatient}
                     />
                 ))}
             </>) : (
